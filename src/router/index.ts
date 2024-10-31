@@ -1,19 +1,24 @@
+import MainFull from '@/components/MainFull.vue'
+import LevelLane from '@/components/LevelLane.vue'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import AdminLane from '@/components/AdminLane.vue';
+
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'MainFull',
+    component: MainFull
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/test',
+    name: 'LevelLane',
+    component: LevelLane
+  },
+  {
+    path: '/admin',
+    name: 'AdminLane',
+    component: AdminLane
   }
 ]
 

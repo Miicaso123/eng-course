@@ -1,14 +1,30 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
+import { authModule } from './modules/auth';
+import { updatePrice } from '@/admin.js';
+import { priceModule } from './modules/priceModule';
+
+
+export type NamePrice = {
+  id: number,
+  name: string,
+  price: string
+}
 
 export default createStore({
   state: {
-  },
-  getters: {
+
   },
   mutations: {
+
   },
   actions: {
+
+  },
+  getters: {
+
   },
   modules: {
+    auth: authModule,
+    price: priceModule,
   }
 })
