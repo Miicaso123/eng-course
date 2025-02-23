@@ -9,35 +9,32 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
-export default defineComponent({
-
-})
+export default defineComponent({});
 </script>
 
 <style>
-  .footer-lane {
-    background-color: #8FBC8F;
-    width: 100%;
-    height: 15vh;
-  }
+.footer-lane {
+  background-color: #8fbc8f;
+  width: 100%;
+  height: 15vh;
+}
 
-  .footer-content {
-    display: flex;
-    margin: auto;
-    padding-top: 30px;
-  }
+.footer-content {
+  display: flex;
+  margin: auto;
+  padding-top: 30px;
+}
 
-  .footer-inside {
-    display: flex;
-    margin: auto;
-    align-items: center;
-  }
+.footer-inside {
+  display: flex;
+  margin: auto;
+  align-items: center;
+}
 
-  .footer-inside h5{
-    word-spacing: 8px;
-    font-size: medium;
-  }
-
+.footer-inside h5 {
+  word-spacing: 8px;
+  font-size: medium;
+}
 </style>

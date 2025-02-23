@@ -1,36 +1,31 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set, get, update, onValue, remove, push } from 'firebase/database';
 
-
-
 const firebaseConfig = {
   apiKey: 'AIzaSyDk1hTiM7BiO2KgaD2rUB3DtstGbzd9k50',
   authDomain: 'aikoproject-daea4.firebaseapp.com',
-  databaseURL: "https://aikoproject-daea4-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  databaseURL: 'https://aikoproject-daea4-default-rtdb.asia-southeast1.firebasedatabase.app/',
   projectId: 'aikoproject-daea4',
   storageBucket: 'aikoproject-daea4.appspot.com',
   messagingSenderId: '969240110583',
   appId: '1:969240110583:web:043a51f323244a63a83af2',
 };
 
-
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-export {database};
-
-
+export { database };
 
 export const fetchPrices = async () => {
   const dbRef = ref(database, 'prices/namePrices');
   const snapshot = await get(dbRef);
-  
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      return Object.values(data);
+
+  if (snapshot.exists()) {
+    const data = snapshot.val();
+    return Object.values(data);
   } else {
-      console.error('No data available');
-      return []; // Возвращаем пустой массив, если данных нет
+    console.error('No data available');
+    return []; // Возвращаем пустой массив, если данных нет
   }
 };
 
@@ -50,7 +45,6 @@ export const fetchContacts = async () => {
   }
 };
 
-
 export async function readData(path) {
   const snapshot = await get(ref(database, path));
   if (snapshot.exists()) {
@@ -59,7 +53,6 @@ export async function readData(path) {
     throw new Error('Нет данных по указанному пути');
   }
 }
-
 
 export const writeData = async (path, data) => {
   const db = getDatabase();
@@ -79,7 +72,6 @@ export async function deleteData(path) {
     console.error('Ошибка при удалении данных: ', error);
   }
 }
-
 
 // export const addTestQuestions = async () => {
 //   const tests = [
@@ -122,4 +114,3 @@ export async function deleteData(path) {
 // };
 
 // addTestQuestions();
-

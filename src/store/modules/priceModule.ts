@@ -1,6 +1,5 @@
 import { ActionContext } from 'vuex';
 import { readData, writeData, deleteData } from '@/firebase';
-import { AuthState } from '@/store/modules/auth';
 
 export interface PriceItem {
   name: string;
@@ -11,11 +10,6 @@ interface PriceState {
   namePrices: PriceItem[];
   isAdmin: boolean;
 }
-
-
-// interface SetIsAdminPayload {
-//   isAdmin: boolean;
-// }
 
 interface UpdatePricePayload {
   price: string;
@@ -33,10 +27,7 @@ export const priceModule = {
     isAdmin: false,
   }),
   mutations: {
-    // setIsAdmin(state: PriceState, payload: SetIsAdminPayload) {
-    //   state.isAdmin = payload.isAdmin;
-    // },
-    setNamePrices(state: PriceState, namePrices: PriceItem[],) {
+    setNamePrices(state: PriceState, namePrices: PriceItem[]) {
       state.namePrices = namePrices;
     },
     updatePrice(state: PriceState, payload: UpdatePricePayload) {
@@ -62,17 +53,12 @@ export const priceModule = {
         return data;
       } catch (error) {
         console.error('Ошибка при получении данных из Firebase:', error);
-        return []
+        return [];
       }
     },
-    
-    // setAdmin(context: ActionContext<PriceState, any>, isAdmin: boolean) {
-    //   context.commit('setIsAdmin', { isAdmin });
-    // },
-    
+
     // Действие для обновления цены
     async updatePriceAction(context: ActionContext<PriceState, any>, payload: UpdatePricePayload) {
-
       context.commit('updatePrice', payload);
 
       try {
@@ -88,14 +74,6 @@ export const priceModule = {
     },
 
     async addPriceAction(context: ActionContext<PriceState, any>, payload: AddPricePayload) {
-      // const { rootState } = context;
-
-      // if (!rootState.auth.isAdmin) {
-      //   console.error('Ошибка: только администраторы могут добавлять цены.');
-      //   alert('У вас нет прав для добавления цены!');
-      //   return;
-      // }
-
       const newPriceItem: PriceItem = {
         name: payload.name,
         price: payload.price,
@@ -105,8 +83,6 @@ export const priceModule = {
       context.commit('addPrice', newPriceItem);
 
       try {
-        // const currentPrices = context.state.namePrices;
-        // const newIndex = currentPrices.length; // Используем длину массива как индекс
         const newIndex = Date.now();
         await writeData(`prices/namePrices/${newIndex}`, newPriceItem);
         console.log('Новая цена успешно добавлена:', newPriceItem);
@@ -115,12 +91,10 @@ export const priceModule = {
       }
     },
 
-
     async deletePriceAction(context: ActionContext<PriceState, any>, index: number) {
-    
       // Удаляем локально
       context.commit('deletePrice', index);
-    
+
       try {
         // Удаляем элемент из Firebase
         await deleteData(`prices/namePrices/${index}`);
@@ -128,13 +102,13 @@ export const priceModule = {
       } catch (error) {
         console.error('Ошибка при удалении данных из Firebase:', error);
       }
-    
+
       // После удаления элемента пересчитываем индексы оставшихся элементов
       const updatedPrices = context.state.namePrices.map((item, newIndex) => ({
         ...item,
-        index: newIndex // Перенумеровываем элементы
+        index: newIndex, // Перенумеровываем элементы
       }));
-    
+
       // Перезаписываем обновленный массив в Firebase
       try {
         await writeData('prices/namePrices', updatedPrices); // Перезаписываем все цены с новыми индексами
@@ -142,13 +116,12 @@ export const priceModule = {
       } catch (error) {
         console.error('Ошибка при обновлении данных в Firebase:', error);
       }
-    }
-
+    },
   },
   getters: {
     namePrices: (state: PriceState): PriceItem[] => state.namePrices,
     isAdmin: (state: PriceState): boolean => state.isAdmin,
     isAuthenticated: (state: any): boolean => state.isAuthenticated,
   },
-  namespaced: true
+  namespaced: true,
 };
