@@ -1,24 +1,5 @@
-# eng-webaiko
+# English course website
 
-## Project setup
-```
-npm install
-```
+This is my project, which I deployed on Netlify. You can check it out at the following link:)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[View the website](https://aikoeng.netlify.app/)
